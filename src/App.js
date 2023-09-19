@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
+import HomePage from './components/HomePage';
+import DetailsPage from './components/DetailsPage';
+import FavoritesPage from './components/FavoritePage';
+import { AuthProvider } from './services/AuthContext';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Router>
+        <AuthProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/details/:symbol" element={<DetailsPage />} />
+            <Route path="/favorites" element={<FavoritesPage />} /> {/* Add this route */}
+          </Routes>
+        </AuthProvider>
+      </Router>
     </div>
   );
 }
